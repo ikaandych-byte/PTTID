@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --pearl: #F7F3EE;
+    --mist: #EAE3DB;
+    --ink: #2A2521;
+    --bronze: #A8804A;
+    --blush: #D9B9BC;
+    --mid: rgba(42, 37, 33, 0.52);
+    --line: rgba(42, 37, 33, 0.14);
+    
+    --font-manrope: 'Manrope', system-ui, sans-serif;
+    --font-syne: 'Syne', sans-serif;
+    --font-cinzel: 'Cinzel', serif;
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+    --font-zen: 'Zen Kaku Gothic New', sans-serif;
+    --font-inter: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-zen), system-ui, sans-serif;
+    background-color: var(--pearl);
+    color: var(--ink);
+  }
+}
+
+.font-manrope {
+  font-family: var(--font-manrope);
+}
+
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-zen {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+/* Metallic silver / bronze text */
+.text-bronze {
+  color: #A8804A;
+}
+
+.text-metallic {
+  background: linear-gradient(135deg, #2A2521 0%, #524740 40%, #A8804A 70%, #2A2521 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-metallic-silver {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 35%, #94a3b8 70%, #f1f5f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-tsubaki {
+  color: #b91c1c;
+}
+
+/* Authentic Hero gradient wash matching https://hakuba-s9-tsubaki-35.aura.build */
+.hero-wash {
+  background:
+    radial-gradient(58% 44% at 68% 26%, rgba(217, 185, 188, 0.34), transparent 70%),
+    radial-gradient(46% 40% at 22% 72%, rgba(168, 128, 74, 0.14), transparent 72%),
+    linear-gradient(160deg, #FBF8F4 0%, #EFE7DE 52%, #E4D9CE 100%);
+}
+
+.hero-rule {
+  background: linear-gradient(105deg, transparent 0 46%, rgba(255, 255, 255, 0.55) 46% 47%, transparent 47%);
+}
+
+/* Animations */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee-logos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-logos {
+  display: flex;
+  width: max-content;
+  animation: marquee-logos 28s linear infinite;
+}
+
+.animate-marquee-logos:hover {
+  animation-play-state: paused;
+}
+
+.pearl-panel {
+  background: #F7F3EE;
+  border: 1px solid rgba(42, 37, 33, 0.14);
+}
+
+.mist-panel {
+  background: #EAE3DB;
+  border: 1px solid rgba(42, 37, 33, 0.12);
+}
+
+.ink-panel {
+  background: #2A2521;
+  color: #F7F3EE;
+  border: 1px solid rgba(247, 243, 238, 0.14);
+}
+
+.glass-pearl {
+  background: rgba(247, 243, 238, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 37, 33, 0.12);
+}
+
+.glass-ink {
+  background: rgba(42, 37, 33, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(247, 243, 238, 0.14);
+}
+
+/* Sharp edge aesthetic styling */
+.sharp-card {
+  border-radius: 2px;
+  position: relative;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F3EE;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(42, 37, 33, 0.22);
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A8804A;
+}

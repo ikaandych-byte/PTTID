@@ -1,0 +1,7 @@
+{
+  "name": "PTTID - PT. Prima Teknik Trada",
+  "description": "PT. Prima Teknik Trada (PTTID) - Technical Robotics, Automation Systems, Precision Parts, Jig & Fixtures, Dies & Molds, and Parts Mass Production in MM2100 Cibitung Bekasi, Indonesia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
