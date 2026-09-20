@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { ArrowRight, Play, Star, Target, X } from 'lucide-react';
+import { ArrowRight, Play, Star, Target, X, ShieldCheck, Factory } from 'lucide-react';
 import heroFactoryImage from '../assets/images/hero_stamping_plant_1789908932348.jpg';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HeroSectionProps {
   onOpenReserve?: () => void;
@@ -16,6 +17,7 @@ const CLIENT_LOGOS = [
 ];
 
 export function HeroSection({ onOpenReserve }: HeroSectionProps) {
+  const { t, language } = useLanguage();
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
 
   return (
@@ -45,30 +47,30 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Content */}
           <div className="lg:col-span-7 space-y-4 sm:space-y-6">
-            {/* Award-Winning Design Badge (Subtitle/Eyebrow) */}
+            {/* Precision Engineering Badge (Subtitle/Eyebrow) */}
             <div className="[animation:fadeSlideIn_0.8s_ease-out_0.2s_both]">
-              <div className="inline-flex items-center gap-x-2 sm:gap-x-3 bg-white/75 border border-[#2A2521]/14 rounded-full pt-2 pr-3 sm:pr-4 pb-2 pl-3 sm:pl-4 backdrop-blur-lg shadow-sm">
-                <span className="text-[10px] sm:text-xs tracking-wider uppercase flex items-center gap-1.5 sm:gap-2 font-manrope font-semibold text-[#2A2521]/80">
-                  Award-Winning Design
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A8804A] fill-[#A8804A]" />
+              <div className="inline-flex items-center gap-x-2 sm:gap-x-3 bg-white/80 border border-[#2A2521]/14 rounded-full pt-2 pr-3 sm:pr-4 pb-2 pl-3 sm:pl-4 backdrop-blur-lg shadow-sm">
+                <span className="text-[10px] sm:text-xs tracking-wider uppercase flex items-center gap-1.5 sm:gap-2 font-mono font-semibold text-[#2A2521]/85">
+                  <Factory className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A8804A]" />
+                  {t('hero.badge')}
                 </span>
               </div>
             </div>
 
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] [animation:fadeSlideIn_0.8s_ease-out_0.3s_both] font-manrope font-medium tracking-tighter text-[#2A2521] drop-shadow-sm">
-              Crafting Digital
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] sm:leading-[0.9] [animation:fadeSlideIn_0.8s_ease-out_0.3s_both] font-manrope font-medium tracking-tighter text-[#2A2521] drop-shadow-sm">
+              {t('hero.title.line1')}
               <br />
               <span className="bg-clip-text font-manrope font-medium text-transparent tracking-tighter bg-gradient-to-br from-[#2A2521] via-[#A8804A] to-[#b91c1c] pr-1">
-                Experiences
+                {t('hero.title.line2')}
               </span>
               <br />
-              That Matter
+              {t('hero.title.line3')}
             </h1>
 
             {/* Subtitle Description */}
-            <p className="[animation:fadeSlideIn_0.8s_ease-out_0.4s_both] font-manrope text-base sm:text-lg text-[#2A2521]/75 max-w-xl leading-relaxed">
-              We design interfaces that combine beauty with functionality, creating seamless experiences that users love and businesses thrive on.
+            <p className="[animation:fadeSlideIn_0.8s_ease-out_0.4s_both] font-manrope text-sm sm:text-base md:text-lg text-[#2A2521]/80 max-w-xl leading-relaxed">
+              {t('hero.desc')}
             </p>
 
             {/* Action Buttons */}
@@ -76,9 +78,9 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
               {/* Primary: View Portfolio */}
               <a
                 href="#gallery"
-                className="group inline-flex transition-all duration-300 hover:shadow-xl hover:bg-[#3D352F] text-sm font-manrope font-medium text-[#F7F3EE] bg-[#2A2521] rounded-full pt-3 sm:pt-4 pr-6 sm:pr-8 pb-3 sm:pb-4 pl-6 sm:pl-8 shadow-md gap-x-2 sm:gap-x-3 items-center justify-center hover:scale-[1.02] active:scale-[0.99]"
+                className="group inline-flex transition-all duration-300 hover:shadow-xl hover:bg-[#3D352F] text-xs sm:text-sm font-manrope font-medium text-[#F7F3EE] bg-[#2A2521] rounded-full pt-3 sm:pt-4 pr-6 sm:pr-8 pb-3 sm:pb-4 pl-6 sm:pl-8 shadow-md gap-x-2 sm:gap-x-3 items-center justify-center hover:scale-[1.02] active:scale-[0.99]"
               >
-                <span className="font-manrope">View Portfolio</span>
+                <span className="font-manrope">{t('hero.cta.portfolio')}</span>
                 <ArrowRight className="w-4 h-4 text-[#A8804A] group-hover:translate-x-1 transition-transform" />
               </a>
 
@@ -86,36 +88,36 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
               <button
                 type="button"
                 onClick={() => setIsShowreelOpen(true)}
-                className="group inline-flex hover:text-[#2A2521] transition-all duration-300 hover:border-[#2A2521]/40 hover:bg-white text-sm font-manrope font-medium text-[#2A2521]/80 border-[#2A2521]/20 border bg-white/60 backdrop-blur-md rounded-full pt-3 sm:pt-4 pr-6 sm:pr-8 pb-3 sm:pb-4 pl-6 sm:pl-8 gap-x-2 sm:gap-x-3 items-center justify-center shadow-sm hover:scale-[1.02]"
+                className="group inline-flex hover:text-[#2A2521] transition-all duration-300 hover:border-[#2A2521]/40 hover:bg-white text-xs sm:text-sm font-manrope font-medium text-[#2A2521]/80 border-[#2A2521]/20 border bg-white/70 backdrop-blur-md rounded-full pt-3 sm:pt-4 pr-6 sm:pr-8 pb-3 sm:pb-4 pl-6 sm:pl-8 gap-x-2 sm:gap-x-3 items-center justify-center shadow-sm hover:scale-[1.02]"
               >
                 <Play className="w-4 h-4 text-[#b91c1c] fill-[#b91c1c]" />
-                <span className="font-manrope">Watch Showreel</span>
+                <span className="font-manrope">{t('hero.cta.showreel')}</span>
               </button>
             </div>
           </div>
 
           {/* Right Stats */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6">
-            {/* Card 1: 150+ Projects Delivered */}
+            {/* Card 1: Turnkey Projects Delivered */}
             <div
-              className="overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] bg-white/80 border border-[#2A2521]/14 w-full h-fit rounded-2xl sm:rounded-3xl relative shadow-[0_8px_32px_rgba(42,37,33,0.06)] backdrop-blur-xl"
+              className="overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] bg-white/85 border border-[#2A2521]/14 w-full h-fit rounded-2xl sm:rounded-3xl relative shadow-[0_8px_32px_rgba(42,37,33,0.06)] backdrop-blur-xl"
             >
-              <div className="[animation:fadeSlideIn_0.8s_ease-out_0.6s_both] pt-6 sm:pt-8 pr-6 sm:pr-8 pb-6 sm:pb-8 pl-6 sm:pl-8 relative">
+              <div className="[animation:fadeSlideIn_0.8s_ease-out_0.6s_both] pt-5 sm:pt-8 pr-5 sm:pr-8 pb-5 sm:pb-8 pl-5 sm:pl-8 relative">
                 <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border border-[#2A2521]/15 flex items-center justify-center bg-[#2A2521] text-[#F7F3EE] shadow-sm">
                     <Target className="w-5 h-5 sm:w-6 sm:h-6 text-[#F7F3EE]" />
                   </div>
                   <div>
                     <div className="text-2xl sm:text-3xl tracking-tighter font-manrope font-bold text-[#2A2521]">150+</div>
-                    <div className="text-xs sm:text-sm text-[#2A2521]/70 font-manrope">Projects Delivered</div>
+                    <div className="text-xs sm:text-sm text-[#2A2521]/70 font-manrope">{t('hero.stats.projects')}</div>
                   </div>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs sm:text-sm text-[#2A2521]/70 font-manrope">Client Satisfaction</span>
-                    <span className="text-xs sm:text-sm font-semibold font-manrope text-[#2A2521]">98%</span>
+                    <span className="text-xs sm:text-sm text-[#2A2521]/70 font-manrope">{t('hero.stats.satisfaction')}</span>
+                    <span className="text-xs sm:text-sm font-semibold font-manrope text-[#2A2521]">98.6%</span>
                   </div>
                   <div className="h-1.5 sm:h-2 bg-[#2A2521]/10 rounded-full overflow-hidden">
                     <div
@@ -129,37 +131,37 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
 
                 {/* 3 Metric Columns */}
                 <div className="flex justify-between mb-3 sm:mb-4 gap-2">
-                  <div className="text-center px-1 sm:px-2 cursor-pointer transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 hover:-translate-y-0.5 flex-1 py-1">
+                  <div className="text-center px-1 sm:px-2 transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 flex-1 py-1">
                     <div className="text-xl sm:text-2xl leading-tight font-manrope font-bold text-[#2A2521]">
-                      5+
+                      15+
                     </div>
-                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-manrope font-medium">Years</div>
+                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-mono font-medium">{t('hero.stats.years')}</div>
                   </div>
                   <div className="w-px h-10 sm:h-12 my-auto bg-gradient-to-b from-transparent via-[#2A2521]/20 to-transparent" />
-                  <div className="text-center px-1 sm:px-2 cursor-pointer transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 hover:-translate-y-0.5 flex-1 py-1">
+                  <div className="text-center px-1 sm:px-2 transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 flex-1 py-1">
                     <div className="text-xl sm:text-2xl leading-tight font-manrope font-bold text-[#2A2521]">
                       24/7
                     </div>
-                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-manrope font-medium">Support</div>
+                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-mono font-medium">{t('hero.stats.support')}</div>
                   </div>
                   <div className="w-px h-10 sm:h-12 my-auto bg-gradient-to-b from-transparent via-[#2A2521]/20 to-transparent" />
-                  <div className="text-center px-1 sm:px-2 cursor-pointer transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 hover:-translate-y-0.5 flex-1 py-1">
+                  <div className="text-center px-1 sm:px-2 transition-all duration-300 rounded-xl sm:rounded-2xl hover:bg-[#2A2521]/5 flex-1 py-1">
                     <div className="text-xl sm:text-2xl leading-tight font-manrope font-bold text-[#2A2521]">
                       100%
                     </div>
-                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-manrope font-medium">Quality</div>
+                    <div className="text-[10px] sm:text-xs text-[#2A2521]/60 uppercase tracking-wide font-mono font-medium">{t('hero.stats.quality')}</div>
                   </div>
                 </div>
 
                 {/* Badges */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-[#2A2521]/5 border border-[#2A2521]/15 text-[#2A2521] cursor-pointer transition-all duration-300 hover:-translate-y-px font-manrope font-semibold">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-[#2A2521]/5 border border-[#2A2521]/15 text-[#2A2521] font-mono font-semibold">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#16a34a] animate-pulse" />
-                    ACTIVE
+                    {t('hero.badge.active')}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-[#A8804A]/10 border border-[#A8804A]/30 text-[#A8804A] font-semibold cursor-pointer transition-all duration-300 hover:-translate-y-px font-manrope">
-                    <Star className="w-3 h-3 text-[#A8804A] fill-[#A8804A]" />
-                    PREMIUM
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2.5 py-1 rounded-full bg-[#A8804A]/10 border border-[#A8804A]/30 text-[#A8804A] font-semibold font-mono">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#A8804A]" />
+                    {t('hero.badge.iso')}
                   </span>
                 </div>
               </div>
@@ -167,11 +169,11 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
 
             {/* Card 2: Featured Clients Marquee */}
             <div
-              className="overflow-hidden transition-all duration-300 [animation:fadeSlideIn_0.8s_ease-out_0.7s_both] bg-white/80 border border-[#2A2521]/14 w-full h-fit rounded-2xl sm:rounded-3xl relative shadow-[0_8px_32px_rgba(42,37,33,0.06)] backdrop-blur-xl"
+              className="overflow-hidden transition-all duration-300 [animation:fadeSlideIn_0.8s_ease-out_0.7s_both] bg-white/85 border border-[#2A2521]/14 w-full h-fit rounded-2xl sm:rounded-3xl relative shadow-[0_8px_32px_rgba(42,37,33,0.06)] backdrop-blur-xl"
             >
-              <div className="pt-6 sm:pt-8 pr-6 sm:pr-8 pb-6 sm:pb-8 pl-6 sm:pl-8 relative">
-                <h3 className="text-base sm:text-lg mb-3 sm:mb-4 font-manrope font-bold text-[#2A2521]">
-                  Featured Clients
+              <div className="pt-5 sm:pt-7 pr-5 sm:pr-8 pb-5 sm:pb-7 pl-5 sm:pl-8 relative">
+                <h3 className="text-sm sm:text-base font-manrope font-bold text-[#2A2521] mb-2 sm:mb-3">
+                  {t('hero.clients.title')}
                 </h3>
                 <div className="overflow-hidden relative">
                   <div
@@ -216,8 +218,8 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
           <div className="relative max-w-3xl w-full bg-[#F7F3EE] rounded-3xl p-6 sm:p-8 border border-[#2A2521]/20 shadow-2xl overflow-hidden">
             <div className="flex items-center justify-between pb-4 border-b border-[#2A2521]/15 mb-4">
               <div>
-                <h3 className="font-manrope text-xl font-bold text-[#2A2521]">Digital Experience Showreel</h3>
-                <p className="text-xs text-[#2A2521]/60 font-manrope">Showcase of award-winning precision & craftsmanship</p>
+                <h3 className="font-manrope text-xl font-bold text-[#2A2521]">{t('modal.showreel.title')}</h3>
+                <p className="text-xs text-[#2A2521]/60 font-manrope">{t('modal.showreel.subtitle')}</p>
               </div>
               <button
                 type="button"
@@ -239,17 +241,20 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
               <div className="absolute flex flex-col items-center gap-3">
                 <button
                   type="button"
-                  onClick={() => onOpenReserve?.()}
+                  onClick={() => {
+                    setIsShowreelOpen(false);
+                    onOpenReserve?.();
+                  }}
                   className="w-16 h-16 rounded-full bg-[#F7F3EE] text-[#2A2521] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
                 >
                   <Play className="w-7 h-7 fill-[#2A2521] ml-1" />
                 </button>
-                <span className="text-white text-xs font-manrope tracking-widest uppercase">Click to Launch Full Demo</span>
+                <span className="text-white text-xs font-manrope tracking-widest uppercase">{t('modal.showreel.action')}</span>
               </div>
             </div>
 
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs font-manrope text-[#2A2521]/60">PTTID Technics · Studio Portfolio</span>
+              <span className="text-xs font-manrope text-[#2A2521]/60">{t('modal.showreel.footer')}</span>
               <button
                 type="button"
                 onClick={() => {
@@ -258,7 +263,7 @@ export function HeroSection({ onOpenReserve }: HeroSectionProps) {
                 }}
                 className="text-xs font-manrope font-medium px-4 py-2 bg-[#2A2521] text-[#F7F3EE] rounded-full hover:bg-[#3D352F] transition-colors"
               >
-                Get in Touch
+                {t('nav.rfq')}
               </button>
             </div>
           </div>

@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Shield, Sparkles, CheckCircle2, ChevronRight, Award } from 'lucide-react';
-import { TRIM_OPTIONS, VEHICLE_SPEC } from '../data/vehicleData';
+import { Award, CheckCircle2, ChevronRight } from 'lucide-react';
+import { TRIM_OPTIONS } from '../data/vehicleData';
 import { TrimOption } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface TrimConfiguratorProps {
   onSelectTrimForReserve: (trim: TrimOption) => void;
 }
 
 export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorProps) {
+  const { t, language } = useLanguage();
   const [selectedTrimId, setSelectedTrimId] = useState<string>('automation-robotics');
 
   const selectedTrim = TRIM_OPTIONS.find((t) => t.id === selectedTrimId) || TRIM_OPTIONS[0];
@@ -19,14 +21,16 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <div className="flex items-center gap-2 mb-2 font-mono text-xs tracking-[0.3em] uppercase text-[#b91c1c] font-semibold">
-            <span>[ 03 · Manufacturing Division Matrix ]</span>
+            <span>[ 03 · {t('divisions.badge')} ]</span>
           </div>
           <h2 className="font-syne text-3xl sm:text-5xl font-bold tracking-tight text-[#2A2521] uppercase">
-            Three Specialized Pillars. <br />
-            <span className="text-metallic font-light">One Standard of Excellence.</span>
+            {language === 'id' ? 'Tiga Divisi Utama.' : 'Three Specialized Pillars.'} <br />
+            <span className="text-metallic font-light">
+              {language === 'id' ? 'Satu Standar Kualitas Presisi.' : 'One Standard of Excellence.'}
+            </span>
           </h2>
           <p className="mt-3 text-sm text-[#2A2521]/70 font-mono leading-relaxed">
-            From turnkey multi-axis robotic automation and heavy double-column CNC tooling to mass production stamping presses, explore PTTID's core manufacturing divisions.
+            {t('divisions.desc')}
           </p>
         </div>
 
@@ -62,7 +66,7 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
                     </div>
 
                     <div className="text-right font-mono">
-                      <span className="text-xs text-[#2A2521]/60 block">Capacity</span>
+                      <span className="text-xs text-[#2A2521]/60 block">{language === 'id' ? 'Kapasitas Tim' : 'Capacity'}</span>
                       <span className="text-sm font-bold text-[#2A2521]">
                         {trim.remaining} / {trim.units}
                       </span>
@@ -80,7 +84,9 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
             <div className="p-4 bg-[#F7F3EE] border border-[#2A2521]/15 sharp-card flex items-center gap-3 text-xs font-mono text-[#2A2521]/80 shadow-sm">
               <Award className="w-5 h-5 text-[#b91c1c] shrink-0" />
               <span>
-                Certified ISO 9001:2015 MD/PTT954 with full 6-Axis CMM metrology inspection report.
+                {language === 'id'
+                  ? 'Tersertifikasi ISO 9001:2015 MD/PTT954 dengan laporan inspeksi metrologi CMM 6-Axis lengkap.'
+                  : 'Certified ISO 9001:2015 MD/PTT954 with full 6-Axis CMM metrology inspection report.'}
               </span>
             </div>
           </div>
@@ -90,7 +96,7 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
             <div className="flex items-center justify-between border-b border-[#2A2521]/12 pb-4 mb-6">
               <div>
                 <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#2A2521]/60 block">
-                  Division Specifications
+                  {language === 'id' ? 'Spesifikasi & Kapabilitas Divisi' : 'Division Specifications'}
                 </span>
                 <h3 className="font-syne text-2xl font-bold text-[#2A2521] uppercase">
                   {selectedTrim.name}
@@ -102,7 +108,7 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
                 onClick={() => onSelectTrimForReserve(selectedTrim)}
                 className="px-4 py-2 bg-[#2A2521] hover:bg-[#3D352F] text-[#F7F3EE] font-mono text-xs tracking-widest uppercase flex items-center gap-2 transition-all shadow-md active:scale-95"
               >
-                <span>Select for RFQ</span>
+                <span>{t('divisions.cta')}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-[#A8804A]" />
               </button>
             </div>
@@ -111,37 +117,37 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
               <div className="p-4 bg-[#EAE3DB] border border-[#2A2521]/12">
                 <span className="text-[10px] font-mono tracking-widest uppercase text-[#2A2521]/60 block">
-                  Capacity / Power
+                  {language === 'id' ? 'Kapasitas / Daya' : 'Capacity / Power'}
                 </span>
                 <span className="font-syne text-3xl font-bold text-[#2A2521]">
                   {selectedTrim.power}
                 </span>
-                <span className="text-[10px] font-mono text-[#b91c1c] block font-semibold">Max Operating Rating</span>
+                <span className="text-[10px] font-mono text-[#b91c1c] block font-semibold">{language === 'id' ? 'Rating Operasi Maks' : 'Max Operating Rating'}</span>
               </div>
 
               <div className="p-4 bg-[#EAE3DB] border border-[#2A2521]/12">
                 <span className="text-[10px] font-mono tracking-widest uppercase text-[#2A2521]/60 block">
-                  Tolerance / Speed
+                  {language === 'id' ? 'Toleransi / Siklus' : 'Tolerance / Speed'}
                 </span>
                 <span className="font-syne text-3xl font-bold text-[#2A2521]">
                   {selectedTrim.zeroToHundred}
                 </span>
-                <span className="text-[10px] font-mono text-[#2A2521]/60 block">Precision Cycle</span>
+                <span className="text-[10px] font-mono text-[#2A2521]/60 block">{language === 'id' ? 'Siklus Presisi' : 'Precision Cycle'}</span>
               </div>
 
               <div className="p-4 bg-[#EAE3DB] border border-[#2A2521]/12">
                 <span className="text-[10px] font-mono tracking-widest uppercase text-[#2A2521]/60 block">
-                  Payload / Mass
+                  {language === 'id' ? 'Beban Kerja' : 'Payload / Mass'}
                 </span>
                 <span className="font-syne text-3xl font-bold text-[#2A2521]">
                   {selectedTrim.weight}
                 </span>
-                <span className="text-[10px] font-mono text-[#2A2521]/60 block">Envelope Rating</span>
+                <span className="text-[10px] font-mono text-[#2A2521]/60 block">{language === 'id' ? 'Rating Kapasitas' : 'Envelope Rating'}</span>
               </div>
 
               <div className="p-4 bg-[#EAE3DB] border border-[#2A2521]/12">
                 <span className="text-[10px] font-mono tracking-widest uppercase text-[#2A2521]/60 block">
-                  Speed / Rating
+                  {language === 'id' ? 'Kecepatan / Spindle' : 'Speed / Rating'}
                 </span>
                 <span className="font-syne text-3xl font-bold text-[#2A2521]">
                   {selectedTrim.topSpeed}
@@ -154,7 +160,7 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
             <div className="space-y-4 font-mono text-xs">
               <div>
                 <div className="flex justify-between text-[#2A2521]/80 mb-1">
-                  <span>Manufacturing Line Efficiency</span>
+                  <span>{language === 'id' ? 'Efisiensi Jalur Manufaktur (OEE)' : 'Manufacturing Line Efficiency'}</span>
                   <span className="text-[#b91c1c] font-semibold">
                     99.4% OEE Benchmark
                   </span>
@@ -169,8 +175,8 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
 
               <div>
                 <div className="flex justify-between text-[#2A2521]/80 mb-1">
-                  <span>Quality Rigor & Tolerance Compliance</span>
-                  <span className="text-[#2A2521] font-semibold">100% CMM Metrology Verified</span>
+                  <span>{language === 'id' ? 'Kepatuhan Toleransi & Standar Mutu' : 'Quality Rigor & Tolerance Compliance'}</span>
+                  <span className="text-[#2A2521] font-semibold">{language === 'id' ? '100% Terverifikasi CMM Metrologi' : '100% CMM Metrology Verified'}</span>
                 </div>
                 <div className="w-full h-1.5 bg-[#EAE3DB]">
                   <div
@@ -184,16 +190,16 @@ export function TrimConfigurator({ onSelectTrimForReserve }: TrimConfiguratorPro
             {/* Mechanical summary table */}
             <div className="mt-8 pt-6 border-t border-[#2A2521]/12 grid grid-cols-1 sm:grid-cols-2 gap-y-3 text-xs font-mono">
               <div className="flex items-center gap-2 text-[#2A2521]/80">
-                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> Multi-Axis Robotic Articulation (Epson / Yaskawa)
+                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> {language === 'id' ? 'Robotik Multi-Sumbu Terintegrasi (Epson / Yaskawa)' : 'Multi-Axis Robotic Articulation (Epson / Yaskawa)'}
               </div>
               <div className="flex items-center gap-2 text-[#2A2521]/80">
-                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> 3000 x 2000 mm Double Column CNC Centers
+                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> {language === 'id' ? 'Pusat Mesin CNC Double Column 3000 x 2000 mm' : '3000 x 2000 mm Double Column CNC Centers'}
               </div>
               <div className="flex items-center gap-2 text-[#2A2521]/80">
-                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> 12 Stamping Mechanical Presses (Up to 250 Tons)
+                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> {language === 'id' ? '12 Lini Mesin Press Stamping Mekanikal (s.d. 250 Ton)' : '12 Stamping Mechanical Presses (Up to 250 Tons)'}
               </div>
               <div className="flex items-center gap-2 text-[#2A2521]/80">
-                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> Certified ISO 9001:2015 Tier-1 Automotive Supplier
+                <CheckCircle2 className="w-4 h-4 text-[#b91c1c]" /> {language === 'id' ? 'Pemasok Otomotif Tier-1 Bersertifikat ISO 9001:2015' : 'Certified ISO 9001:2015 Tier-1 Automotive Supplier'}
               </div>
             </div>
 

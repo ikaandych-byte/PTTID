@@ -1,18 +1,20 @@
 import { useState } from 'react';
-import { Maximize2, X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data/vehicleData';
 import { GalleryItem } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export function AsymmetricGallery() {
+  const { t, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeModalItem, setActiveModalItem] = useState<GalleryItem | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All Operations' },
-    { id: 'exterior', label: 'Robotic Automation' },
-    { id: 'engineering', label: 'CNC Machining' },
-    { id: 'interior', label: 'Jigs & Fixtures' },
-    { id: 'craft', label: 'Assembly & Tooling' },
+    { id: 'all', label: language === 'id' ? 'Semua Fasilitas' : 'All Facilities' },
+    { id: 'exterior', label: language === 'id' ? 'Robotika & SPM' : 'Robotics & SPM' },
+    { id: 'engineering', label: language === 'id' ? 'Pusat Mesin CNC' : 'CNC Centers' },
+    { id: 'interior', label: language === 'id' ? 'Jig & Fixture' : 'Jigs & Fixtures' },
+    { id: 'craft', label: language === 'id' ? 'Dies & Tooling' : 'Press & Tooling' },
   ];
 
   const filteredItems = selectedCategory === 'all'
@@ -41,13 +43,13 @@ export function AsymmetricGallery() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2 font-mono text-xs tracking-[0.3em] uppercase text-[#b91c1c] font-semibold">
-              <span>[ 02 · Facility & Production Gallery ]</span>
+              <span>[ 02 · {t('gallery.badge')} ]</span>
             </div>
             <h2 className="font-syne text-3xl sm:text-5xl font-bold tracking-tight text-[#2A2521] uppercase">
-              Industrial <span className="text-metallic font-light">Capabilities.</span>
+              {language === 'id' ? 'Galeri Fasilitas &' : 'Industrial'} <span className="text-metallic font-light">{language === 'id' ? 'Kemampuan Manufaktur.' : 'Capabilities.'}</span>
             </h2>
-            <p className="mt-2 text-sm text-[#2A2521]/70 font-mono">
-              High-precision multi-axis robotics, large-scale double column CNC milling, checking fixtures, and stamping presses.
+            <p className="mt-2 text-sm text-[#2A2521]/70 font-mono max-w-xl">
+              {t('gallery.desc')}
             </p>
           </div>
 
@@ -154,7 +156,7 @@ export function AsymmetricGallery() {
             <div className="p-4 sm:p-5 border-b border-[#2A2521]/15 flex items-center justify-between bg-[#EAE3DB]">
               <div>
                 <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-[#b91c1c] font-semibold block">
-                  Detailed Inspection · {activeModalItem.category}
+                  {language === 'id' ? 'Inspeksi Detail Fasilitas' : 'Detailed Inspection'} · {activeModalItem.category}
                 </span>
                 <h3 className="font-syne text-xl font-bold text-[#2A2521] uppercase">
                   {activeModalItem.title}
@@ -206,12 +208,12 @@ export function AsymmetricGallery() {
                   {activeModalItem.caption}
                 </p>
                 <span className="inline-block mt-2 font-mono text-xs text-[#b91c1c] font-semibold tracking-wider">
-                  Technical Spec: {activeModalItem.technicalNote}
+                  {language === 'id' ? 'Spesifikasi Teknis' : 'Technical Spec'}: {activeModalItem.technicalNote}
                 </span>
               </div>
 
               <div className="font-mono text-xs text-[#2A2521]/60 whitespace-nowrap">
-                PTTID Technical Robotics Archive
+                PTTID Precision Engineering & Robotics
               </div>
             </div>
 

@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Cpu, Gauge, Sparkles, Volume2, ShieldCheck, Layers, Sliders } from 'lucide-react';
 import { INTERIOR_HOTSPOTS } from '../data/vehicleData';
 import { playV8RevSound } from '../utils/audioEngine';
+import { useLanguage } from '../context/LanguageContext';
 
 import pttCncMachining from '../assets/images/ptt_cnc_machining_1789896978090.jpg';
 import pttJigFixture from '../assets/images/ptt_jig_fixture_1789896992406.jpg';
 import pttStampingPress from '../assets/images/ptt_stamping_press_1789897009765.jpg';
 
 export function FeaturesBento() {
+  const { t, language } = useLanguage();
+
   // Robotic workcell mode state
   const [aeroMode, setAeroMode] = useState<'welding' | 'tending' | 'vision'>('welding');
   
@@ -28,28 +31,34 @@ export function FeaturesBento() {
 
   const aeroProfiles = {
     welding: {
-      title: 'Robotic Arc & Plasma Welding Workcell',
+      title: language === 'id' ? 'Sel Kerja Robotik Las Arc & Plasma' : 'Robotic Arc & Plasma Welding Workcell',
       downforce: '6-Axis DOF',
       dragCd: '±0.03 mm',
       wingAngle: '360° rotation',
       rideHeight: '14.2s Cycle',
-      note: 'Synchronized multi-axis welding cell with argon shielding and automated fixture positioner for automotive sub-assemblies.',
+      note: language === 'id'
+        ? 'Sel pengelasan multi-sumbu terkoordinasi dengan pelindung gas argon dan positioner fixture otomatis untuk komponen otomotif.'
+        : 'Synchronized multi-axis welding cell with argon shielding and automated fixture positioner for automotive sub-assemblies.',
     },
     tending: {
-      title: 'CNC Robotic Machine Tending & Transfer',
+      title: language === 'id' ? 'Robot Tending & Pemindahan Mesin CNC' : 'CNC Robotic Machine Tending & Transfer',
       downforce: '50 kg Payload',
       dragCd: '±0.02 mm',
       wingAngle: 'Dual Gripper',
       rideHeight: '2.8s Transfer',
-      note: 'High-speed automated part loading and unloading for CNC machining centers, reducing operator idle time to zero.',
+      note: language === 'id'
+        ? 'Sistem otomatisasi bongkar-muat benda kerja berkecepatan tinggi untuk pusat permesinan CNC, mengeliminasi waktu tunggu operator.'
+        : 'High-speed automated part loading and unloading for CNC machining centers, reducing operator idle time to zero.',
     },
     vision: {
-      title: 'Vision-Guided Pick & Place and Sealing',
+      title: language === 'id' ? 'Robotik Pick & Place Berpandu Kamera Visi' : 'Vision-Guided Pick & Place and Sealing',
       downforce: '3D Optical',
       dragCd: '±0.01 mm',
       wingAngle: 'Keyence Vision',
       rideHeight: '1,200 pcs/hr',
-      note: 'Integrated Keyence and Omron vision cameras tracking dynamic part positions with automated sealant dispensing.',
+      note: language === 'id'
+        ? 'Kamera inspeksi optik Keyence/Omron melacak orientasi komponen secara dinamis sekaligus pengaplikasian sealant otomatis.'
+        : 'Integrated Keyence and Omron vision cameras tracking dynamic part positions with automated sealant dispensing.',
     },
   };
 
@@ -66,16 +75,18 @@ export function FeaturesBento() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2 font-mono text-xs tracking-[0.3em] uppercase text-[#b91c1c] font-semibold">
-              <span>[ 01 · Engineering Capabilities ]</span>
+              <span>[ 01 · {t('features.badge')} ]</span>
             </div>
             <h2 className="font-syne text-3xl sm:text-5xl font-bold tracking-tight text-[#2A2521] uppercase">
-              Robotics. CNC Machining. <br />
-              <span className="text-metallic font-light">Precision Tooling.</span>
+              {language === 'id' ? 'Robotika. Mesin CNC.' : 'Robotics. CNC Machining.'} <br />
+              <span className="text-metallic font-light">
+                {language === 'id' ? 'Perkakas & Cetakan Presisi.' : 'Precision Tooling.'}
+              </span>
             </h2>
           </div>
 
           <p className="max-w-md text-sm text-[#2A2521]/70 font-mono leading-relaxed">
-            PT. Prima Teknik Trada (PTTID) delivers comprehensive manufacturing solutions: turnkey robotic automation cells, customized special-purpose machines, precision jigs & fixtures, stamping dies, and mass production press parts.
+            {t('features.desc')}
           </p>
         </div>
 
@@ -96,10 +107,10 @@ export function FeaturesBento() {
                   </div>
                   <div>
                     <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#2A2521]/60 block">
-                      Robotics & Automation Division
+                      {language === 'id' ? 'Divisi Robotika & Otomasi' : 'Robotics & Automation Division'}
                     </span>
                     <h3 className="font-syne text-xl sm:text-2xl font-bold text-[#2A2521] uppercase">
-                      Turnkey Robotic Workcells
+                      {t('features.c1.title')}
                     </h3>
                   </div>
                 </div>
@@ -110,14 +121,14 @@ export function FeaturesBento() {
               </div>
 
               <p className="text-sm text-[#2A2521]/80 mb-6 font-sans leading-relaxed">
-                Specialized in multi-axis articulated robots for welding, painting, sealing, machine tending, and high-speed pick & place. Engineered with full electrical PLC control (Omron, Mitsubishi, Beckhoff) and safety interlock architectures.
+                {t('features.c1.desc')}
               </p>
 
               {/* Mode Switcher */}
               <div className="bg-[#EAE3DB]/80 border border-[#2A2521]/12 p-3 mb-6">
                 <div className="flex items-center justify-between text-xs font-mono text-[#2A2521]/70 mb-2">
                   <span className="flex items-center gap-1.5 font-medium">
-                    <Sliders className="w-3.5 h-3.5 text-[#b91c1c]" /> Operational Application
+                    <Sliders className="w-3.5 h-3.5 text-[#b91c1c]" /> {language === 'id' ? 'Aplikasi Operasional' : 'Operational Application'}
                   </span>
                   <span className="text-[#b91c1c] font-semibold">{activeAero.title}</span>
                 </div>
@@ -133,7 +144,7 @@ export function FeaturesBento() {
                           : 'bg-[#F7F3EE] border-[#2A2521]/15 text-[#2A2521]/70 hover:text-[#2A2521] hover:border-[#2A2521]/30'
                       }`}
                     >
-                      {m}
+                      {m === 'welding' ? (language === 'id' ? 'Pengelasan' : 'Welding') : m === 'tending' ? (language === 'id' ? 'Tending Mesin' : 'Tending') : (language === 'id' ? 'Visi Kamera' : 'Vision')}
                     </button>
                   ))}
                 </div>
@@ -142,15 +153,15 @@ export function FeaturesBento() {
               {/* Dynamic Telemetry readout */}
               <div className="grid grid-cols-3 gap-4 border-t border-[#2A2521]/12 pt-4">
                 <div>
-                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">Articulation / DOF</span>
+                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">{language === 'id' ? 'Artikulasi Sumbu' : 'Articulation / DOF'}</span>
                   <span className="font-syne text-xl font-bold text-[#2A2521]">{activeAero.downforce}</span>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">Repeatability</span>
+                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">{language === 'id' ? 'Akurasi Repetisi' : 'Repeatability'}</span>
                   <span className="font-syne text-xl font-bold text-[#b91c1c]">{activeAero.dragCd}</span>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">Cycle / Transfer</span>
+                  <span className="font-mono text-[10px] tracking-widest uppercase text-[#2A2521]/60 block">{language === 'id' ? 'Siklus Kerja' : 'Cycle / Transfer'}</span>
                   <span className="font-syne text-xl font-bold text-[#2A2521]">{activeAero.rideHeight}</span>
                 </div>
               </div>
@@ -159,9 +170,9 @@ export function FeaturesBento() {
             {/* Visual bottom note */}
             <div className="mt-6 pt-4 border-t border-[#2A2521]/12 flex items-center justify-between text-xs font-mono text-[#2A2521]/70">
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" /> Multi-Axis Servo Control Active
+                <span className="w-2 h-2 rounded-full bg-emerald-600" /> {language === 'id' ? 'Sistem Kontrol Servo Multi-Sumbu Aktif' : 'Multi-Axis Servo Control Active'}
               </span>
-              <span className="text-[#2A2521]/60">ISO 9001:2015 Certified System</span>
+              <span className="text-[#2A2521]/60">{language === 'id' ? 'Sistem Terakreditasi ISO 9001:2015' : 'ISO 9001:2015 Certified System'}</span>
             </div>
           </div>
 
@@ -178,10 +189,10 @@ export function FeaturesBento() {
                   </div>
                   <div>
                     <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#2A2521]/60 block">
-                      Machining Department
+                      {language === 'id' ? 'Departemen Permesinan' : 'Machining Department'}
                     </span>
                     <h3 className="font-syne text-xl sm:text-2xl font-bold text-[#2A2521] uppercase">
-                      Double Column CNC
+                      {t('features.c2.title')}
                     </h3>
                   </div>
                 </div>
@@ -205,7 +216,7 @@ export function FeaturesBento() {
               </div>
 
               <p className="text-sm text-[#2A2521]/80 font-sans leading-relaxed mb-6">
-                Equipped with heavy-duty milling spindle, rigid double column bridge, and 4th-axis rotary capabilities for high-precision dies, molds, and automotive structural components.
+                {t('features.c2.desc')}
               </p>
 
               {/* Sound trigger button */}
@@ -220,17 +231,17 @@ export function FeaturesBento() {
                 }`}
               >
                 <Volume2 className={`w-4 h-4 ${isPlayingRev ? 'animate-bounce' : 'text-[#A8804A]'}`} />
-                <span>{isPlayingRev ? '12,000 RPM Spindle Active...' : 'Play High-Speed Spindle Tone'}</span>
+                <span>{isPlayingRev ? (language === 'id' ? 'Spindle 12.000 RPM Aktif...' : '12,000 RPM Spindle Active...') : (language === 'id' ? 'Dengarkan Suara Spindle CNC' : 'Play High-Speed Spindle Tone')}</span>
               </button>
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#2A2521]/12 grid grid-cols-2 gap-4 text-xs font-mono">
               <div>
-                <span className="text-[#2A2521]/60 block text-[10px] uppercase">Working Envelope</span>
+                <span className="text-[#2A2521]/60 block text-[10px] uppercase">{language === 'id' ? 'Dimensi Meja Kerja' : 'Working Envelope'}</span>
                 <span className="text-[#2A2521] font-bold">3000 × 2000 × 1000 mm</span>
               </div>
               <div>
-                <span className="text-[#2A2521]/60 block text-[10px] uppercase">Axis Accuracy</span>
+                <span className="text-[#2A2521]/60 block text-[10px] uppercase">{language === 'id' ? 'Akurasi Sumbu' : 'Axis Accuracy'}</span>
                 <span className="text-[#2A2521] font-bold">±0.003 mm Precision</span>
               </div>
             </div>
@@ -249,10 +260,10 @@ export function FeaturesBento() {
                   </div>
                   <div>
                     <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#2A2521]/60 block">
-                      Tooling & Metrology Division
+                      {language === 'id' ? 'Divisi Perkakas & Metrologi' : 'Tooling & Metrology Division'}
                     </span>
                     <h3 className="font-syne text-xl sm:text-2xl font-bold text-[#2A2521] uppercase">
-                      Checking Fixture & 6-Axis CMM
+                      {t('features.c3.title')}
                     </h3>
                   </div>
                 </div>
@@ -305,7 +316,7 @@ export function FeaturesBento() {
                   </div>
 
                   <span className="text-[10px] font-mono text-[#2A2521]/60 whitespace-nowrap hidden md:inline">
-                    Click markers to inspect metrology details
+                    {language === 'id' ? 'Klik titik marker untuk inspeksi metrologi' : 'Click markers to inspect metrology details'}
                   </span>
                 </div>
               </div>
@@ -313,26 +324,32 @@ export function FeaturesBento() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div className="p-3 bg-[#EAE3DB] border border-[#2A2521]/10">
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#b91c1c] block mb-1 font-semibold">
-                    Zero Tolerance Drift
+                    {t('features.c3.spec1')}
                   </span>
                   <p className="text-xs text-[#2A2521]/80">
-                    Inspected with 6-Axis Portable Coordinate Measuring Machine (CMM R2500) calibrated to ±0.005 mm standards.
+                    {language === 'id'
+                      ? 'Diverifikasi langsung dengan lengan CMM Portabel 6-Axis (R2500) dengan kalibrasi presisi hingga standar ±0.005 mm.'
+                      : 'Inspected with 6-Axis Portable Coordinate Measuring Machine (CMM R2500) calibrated to ±0.005 mm standards.'}
                   </p>
                 </div>
                 <div className="p-3 bg-[#EAE3DB] border border-[#2A2521]/10">
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#b91c1c] block mb-1 font-semibold">
-                    Hardened Datum Blocks
+                    {t('features.c3.spec2')}
                   </span>
                   <p className="text-xs text-[#2A2521]/80">
-                    Precision reference pins and locating pads heat-treated to 58-62 HRC for durability across millions of cycles.
+                    {language === 'id'
+                      ? 'Pin referensi datum dan locating pad dibuat dari baja perkakas yang melalui heat-treatment hingga kekerasan 58-62 HRC.'
+                      : 'Precision reference pins and locating pads heat-treated to 58-62 HRC for durability across millions of cycles.'}
                   </p>
                 </div>
                 <div className="p-3 bg-[#EAE3DB] border border-[#2A2521]/10">
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#A8804A] block mb-1 font-semibold">
-                    Sub-Assembly Jigs
+                    {t('features.c3.spec3')}
                   </span>
                   <p className="text-xs text-[#2A2521]/80">
-                    Custom welding jigs, tightening fixtures, and washing fixtures engineered specifically for automotive production lines.
+                    {language === 'id'
+                      ? 'Jig pengelasan khusus, fixture pengencangan (tightening), dan jig pencucian dirancang sesuai standar jalur produksi otomotif.'
+                      : 'Custom welding jigs, tightening fixtures, and washing fixtures engineered specifically for automotive production lines.'}
                   </p>
                 </div>
               </div>
@@ -351,10 +368,10 @@ export function FeaturesBento() {
                 </div>
                 <div>
                   <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-[#2A2521]/60 block">
-                    Mass Production Division
+                    {language === 'id' ? 'Divisi Produksi Massal' : 'Mass Production Division'}
                   </span>
                   <h3 className="font-syne text-xl font-bold text-[#2A2521] uppercase">
-                    Stamping Press Lines
+                    {t('features.c4.title')}
                   </h3>
                 </div>
               </div>
@@ -373,26 +390,28 @@ export function FeaturesBento() {
 
               <div className="space-y-2.5 font-mono text-xs">
                 <div className="flex justify-between py-1.5 border-b border-[#2A2521]/12">
-                  <span className="text-[#2A2521]/70">Max Press Tonnage</span>
+                  <span className="text-[#2A2521]/70">{language === 'id' ? 'Kapasitas Tonase Maks' : 'Max Press Tonnage'}</span>
                   <span className="text-[#2A2521] font-bold">250 Tons (Shieh Yieh)</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-[#2A2521]/12">
-                  <span className="text-[#2A2521]/70">Mechanical Presses</span>
+                  <span className="text-[#2A2521]/70">{language === 'id' ? 'Mesin Press Aktif' : 'Mechanical Presses'}</span>
                   <span className="text-[#2A2521] font-bold">12 Active Units</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-[#2A2521]/12">
-                  <span className="text-[#2A2521]/70">Brands Deployed</span>
+                  <span className="text-[#2A2521]/70">{language === 'id' ? 'Merek Mesin Terpasang' : 'Brands Deployed'}</span>
                   <span className="text-[#2A2521] font-bold">Amada, Shieh Yieh, Automa</span>
                 </div>
                 <div className="flex justify-between py-1.5 border-b border-[#2A2521]/12">
-                  <span className="text-[#2A2521]/70">Quality Certification</span>
+                  <span className="text-[#2A2521]/70">{language === 'id' ? 'Sertifikasi Mutu' : 'Quality Certification'}</span>
                   <span className="text-[#2A2521] font-bold">ISO 9001:2015 MD/PTT954</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#2A2521]/12 text-[#2A2521]/60 text-[11px] font-mono">
-              Tier-1 supplier for Astra Daihatsu, Astra Honda, Yamaha & Yutaka.
+              {language === 'id'
+                ? 'Pemasok Tier-1 untuk Astra Daihatsu, Astra Honda, Yamaha & Yutaka.'
+                : 'Tier-1 supplier for Astra Daihatsu, Astra Honda, Yamaha & Yutaka.'}
             </div>
           </div>
 

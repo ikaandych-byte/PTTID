@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { X, Check, Shield, Award, Sparkles, CheckCircle2, ChevronRight, FileText } from 'lucide-react';
+import { X, CheckCircle2, Shield } from 'lucide-react';
 import { TRIM_OPTIONS, PAINT_VARIANTS } from '../data/vehicleData';
 import { TrimOption, PaintVariant } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ReservationModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface ReservationModalProps {
 }
 
 export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationModalProps) {
+  const { t, language } = useLanguage();
   const [selectedTrim, setSelectedTrim] = useState<TrimOption>(initialTrim || TRIM_OPTIONS[0]);
   const [selectedPaint, setSelectedPaint] = useState<PaintVariant>(PAINT_VARIANTS[0]); // 6-Axis Robot Cell
   const [selectedChassisNumber, setSelectedChassisNumber] = useState<number>(9);
@@ -45,10 +47,10 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             <span className="w-2.5 h-2.5 bg-[#b91c1c] animate-pulse rounded-full" />
             <div>
               <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#b91c1c] font-semibold block">
-                PT. Prima Teknik Trada · Project RFQ & Engineering Consultation
+                {language === 'id' ? 'PT. Prima Teknik Trada · Pengajuan RFQ & Konsultasi Engineering' : 'PT. Prima Teknik Trada · Project RFQ & Engineering Consultation'}
               </span>
               <h2 className="font-syne text-xl sm:text-2xl font-bold text-[#2A2521] uppercase">
-                PTTID Manufacturing & Automation RFQ
+                {t('rfq.title')}
               </h2>
             </div>
           </div>
@@ -69,7 +71,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             {/* Step 1: Edition & Specification */}
             <div>
               <label className="font-mono text-xs tracking-[0.2em] uppercase text-[#2A2521] font-semibold block mb-3">
-                1. Select Manufacturing Division / Scope
+                {language === 'id' ? '1. Pilih Lingkup / Divisi Manufaktur' : '1. Select Manufacturing Division / Scope'}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {TRIM_OPTIONS.map((trim) => (
@@ -90,7 +92,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
                       {trim.badge}
                     </div>
                     <div className="text-[10px] font-mono text-[#2A2521]/60 mt-2">
-                      {trim.remaining} of {trim.units} Project Slots Available
+                      {trim.remaining} {language === 'id' ? 'dari' : 'of'} {trim.units} {language === 'id' ? 'Kapasitas Proyek Tersedia' : 'Project Slots Available'}
                     </div>
                   </button>
                 ))}
@@ -101,10 +103,10 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             <div>
               <div className="flex items-center justify-between mb-3">
                 <label className="font-mono text-xs tracking-[0.2em] uppercase text-[#2A2521] font-semibold">
-                  2. Select Production Planning Slot (01 — 90)
+                  {language === 'id' ? '2. Alokasi Jadwal Produksi (01 — 90)' : '2. Select Production Planning Slot (01 — 90)'}
                 </label>
                 <span className="font-mono text-xs text-[#b91c1c] font-bold">
-                  Selected Slot: #{String(selectedChassisNumber).padStart(2, '0')} / 90
+                  {language === 'id' ? 'Slot Terpilih' : 'Selected Slot'}: #{String(selectedChassisNumber).padStart(2, '0')} / 90
                 </span>
               </div>
 
@@ -133,7 +135,9 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
                 })}
               </div>
               <span className="text-[10px] font-mono text-[#2A2521]/60 mt-1.5 block">
-                Grayed slots indicate current scheduled commitments with automotive OEM partners.
+                {language === 'id'
+                  ? 'Slot abu-abu menandakan komitmen kapasitas produksi aktif bersama mitra OEM otomotif.'
+                  : 'Grayed slots indicate current scheduled commitments with automotive OEM partners.'}
               </span>
             </div>
 
@@ -141,7 +145,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="font-mono text-xs tracking-[0.2em] uppercase text-[#2A2521] font-semibold block mb-2">
-                  3. Primary Technology Core
+                  {language === 'id' ? '3. Teknologi / Fokus Inti' : '3. Primary Technology Core'}
                 </label>
                 <div className="space-y-2">
                   {PAINT_VARIANTS.map((p) => (
@@ -170,7 +174,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
 
               <div>
                 <label className="font-mono text-xs tracking-[0.2em] uppercase text-[#2A2521] font-semibold block mb-2">
-                  Compliance Standard & Part Ref
+                  {language === 'id' ? 'Standar Kepatuhan & Referensi Part' : 'Compliance Standard & Part Ref'}
                 </label>
                 <div className="grid grid-cols-2 gap-2 mb-3">
                   <button
@@ -189,12 +193,12 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
                       driveHand === 'ISO' ? 'bg-[#2A2521] text-[#F7F3EE] border-[#A8804A] font-semibold' : 'bg-[#F7F3EE] border-[#2A2521]/15 text-[#2A2521]/70'
                     }`}
                   >
-                    ISO 9001 / International
+                    ISO 9001 / Internasional
                   </button>
                 </div>
 
                 <label className="text-[10px] font-mono uppercase text-[#2A2521]/70 block mb-1 font-medium">
-                  Custom Part / Project Identification
+                  {language === 'id' ? 'Nomor Part / Referensi Gambar Proyek' : 'Custom Part / Project Identification'}
                 </label>
                 <input
                   type="text"
@@ -210,14 +214,14 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             {/* Step 4: Client Contact Information */}
             <div className="pt-4 border-t border-[#2A2521]/15">
               <label className="font-mono text-xs tracking-[0.2em] uppercase text-[#2A2521] font-semibold block mb-3">
-                4. Engineering Representative Contact
+                {language === 'id' ? '4. Informasi PIC & Kontak Perusahaan' : '4. Engineering Representative Contact'}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <input
                     type="text"
                     required
-                    placeholder="Representative Name / Company"
+                    placeholder={language === 'id' ? 'Nama PIC / Perusahaan' : 'Representative Name / Company'}
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                     className="w-full bg-[#F7F3EE] border border-[#2A2521]/20 px-3 py-2.5 text-xs text-[#2A2521] placeholder-[#2A2521]/40 focus:outline-none focus:border-[#b91c1c]"
@@ -227,7 +231,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
                   <input
                     type="email"
                     required
-                    placeholder="Corporate Email"
+                    placeholder={language === 'id' ? 'Email Resmi Kantor' : 'Corporate Email'}
                     value={clientEmail}
                     onChange={(e) => setClientEmail(e.target.value)}
                     className="w-full bg-[#F7F3EE] border border-[#2A2521]/20 px-3 py-2.5 text-xs text-[#2A2521] placeholder-[#2A2521]/40 focus:outline-none focus:border-[#b91c1c]"
@@ -237,7 +241,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
                   <input
                     type="text"
                     required
-                    placeholder="Plant Location / Delivery Area"
+                    placeholder={language === 'id' ? 'Lokasi Pabrik / Kawasan Industri' : 'Plant Location / Delivery Area'}
                     value={clientCountry}
                     onChange={(e) => setClientCountry(e.target.value)}
                     className="w-full bg-[#F7F3EE] border border-[#2A2521]/20 px-3 py-2.5 text-xs text-[#2A2521] placeholder-[#2A2521]/40 focus:outline-none focus:border-[#b91c1c]"
@@ -249,14 +253,14 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
             {/* Submit Button */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#2A2521]/15">
               <div className="text-[11px] font-mono text-[#2A2521]/70 flex items-center gap-2">
-                <Shield className="w-4 h-4 text-[#b91c1c]" /> Technical NDA & engineering confidentiality assured.
+                <Shield className="w-4 h-4 text-[#b91c1c]" /> {language === 'id' ? 'Kerahasiaan data teknis & NDA terjamin.' : 'Technical NDA & engineering confidentiality assured.'}
               </div>
 
               <button
                 type="submit"
                 className="w-full sm:w-auto px-8 py-3.5 bg-[#2A2521] hover:bg-[#3D352F] text-[#F7F3EE] font-syne font-semibold text-xs tracking-[0.25em] uppercase border border-[#A8804A]/60 shadow-md hover:scale-[1.02] active:scale-95 transition-all"
               >
-                Submit RFQ Request
+                {t('rfq.submit')}
               </button>
             </div>
 
@@ -270,37 +274,39 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
 
             <div>
               <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#b91c1c] font-semibold block mb-1">
-                RFQ Received · Confidential Engineering Review
+                {language === 'id' ? 'RFQ Diterima · Evaluasi Rekayasa Teknis Rahasia' : 'RFQ Received · Confidential Engineering Review'}
               </span>
               <h3 className="font-syne text-2xl sm:text-3xl font-bold text-[#2A2521] uppercase">
-                Project Slot #{String(selectedChassisNumber).padStart(2, '0')} Logged
+                {language === 'id' ? 'Alokasi Proyek' : 'Project Slot'} #{String(selectedChassisNumber).padStart(2, '0')} {language === 'id' ? 'Tercatat' : 'Logged'}
               </h3>
               <p className="mt-2 text-sm text-[#2A2521]/80 max-w-lg mx-auto font-sans leading-relaxed">
-                Thank you, <span className="text-[#2A2521] font-bold">{clientName || 'Partner'}</span>. Your turnkey automation and precision manufacturing inquiry has been transmitted to PT. Prima Teknik Trada's Engineering Directorate in Cikarang, Indonesia.
+                {language === 'id'
+                  ? `Terima kasih, ${clientName || 'Rekan Mitra'}. Permintaan penawaran otomatisasi robotik dan fabrikasi presisi Anda telah diteruskan ke Divisi Engineering PT. Prima Teknik Trada di Cikarang/Cibitung, Indonesia.`
+                  : `Thank you, ${clientName || 'Partner'}. Your turnkey automation and precision manufacturing inquiry has been transmitted to PT. Prima Teknik Trada's Engineering Directorate in Cikarang, Indonesia.`}
               </p>
             </div>
 
             {/* Specification Certificate Box */}
             <div className="max-w-md mx-auto bg-[#EAE3DB] border border-[#2A2521]/15 p-5 text-left font-mono text-xs space-y-2 sharp-card shadow-inner">
               <div className="flex justify-between border-b border-[#2A2521]/12 pb-2">
-                <span className="text-[#2A2521]/60 uppercase">Selected Division</span>
+                <span className="text-[#2A2521]/60 uppercase">{language === 'id' ? 'Divisi Terpilih' : 'Selected Division'}</span>
                 <span className="text-[#2A2521] font-bold">{selectedTrim.name}</span>
               </div>
               <div className="flex justify-between border-b border-[#2A2521]/12 pb-2">
-                <span className="text-[#2A2521]/60 uppercase">Technology Core</span>
+                <span className="text-[#2A2521]/60 uppercase">{language === 'id' ? 'Fokus Teknologi' : 'Technology Core'}</span>
                 <span className="text-[#2A2521] font-bold">{selectedPaint.name}</span>
               </div>
               <div className="flex justify-between border-b border-[#2A2521]/12 pb-2">
-                <span className="text-[#2A2521]/60 uppercase">Standard Protocol</span>
+                <span className="text-[#2A2521]/60 uppercase">{language === 'id' ? 'Standar Mutu' : 'Standard Protocol'}</span>
                 <span className="text-[#2A2521] font-bold">{driveHand === 'JIS' ? 'JIS Standard (OEM)' : 'ISO 9001:2015'}</span>
               </div>
               <div className="flex justify-between border-b border-[#2A2521]/12 pb-2">
-                <span className="text-[#2A2521]/60 uppercase">Part / Project Ref</span>
+                <span className="text-[#2A2521]/60 uppercase">{language === 'id' ? 'Referensi Part' : 'Part / Project Ref'}</span>
                 <span className="text-[#b91c1c] font-bold truncate max-w-[200px]">{customEngraving}</span>
               </div>
               <div className="flex justify-between pt-1">
-                <span className="text-[#2A2521]/60 uppercase">Turnaround</span>
-                <span className="text-[#2A2521]/80 font-medium">Within 24 Hours Technical Response</span>
+                <span className="text-[#2A2521]/60 uppercase">{language === 'id' ? 'Waktu Respons' : 'Turnaround'}</span>
+                <span className="text-[#2A2521]/80 font-medium">{language === 'id' ? 'Respons Teknis dalam 24 Jam' : 'Within 24 Hours Technical Response'}</span>
               </div>
             </div>
 
@@ -308,7 +314,7 @@ export function ReservationModal({ isOpen, onClose, initialTrim }: ReservationMo
               onClick={handleReset}
               className="px-8 py-3 bg-[#2A2521] hover:bg-[#3D352F] border border-[#A8804A]/60 text-[#F7F3EE] font-mono text-xs tracking-widest uppercase transition-all shadow-md"
             >
-              Return to Showcase
+              {t('rfq.back')}
             </button>
           </div>
         )}
